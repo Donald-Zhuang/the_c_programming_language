@@ -17,20 +17,10 @@ int int_length( void )
 int rightrot_d(int x, int n)
 {
     int length = int_length();
-    while(n--)
+    if( (n = n%length) > 0 )
     {
-        if( 1 & x )
-        {
-            x >>= 1;
-            x |= 1<<(length-1); 
-        }
-        else
-        {
-            x >>= 1;
-            x &= ~(1<<(length-1));
-        }
+        return ( ((~(~0 << n) & x) << (length - n)) | (x >> n) );
     }
-    return x;
 }
 
 int main(int argc,char *argv[])
