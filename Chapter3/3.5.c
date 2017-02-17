@@ -24,31 +24,15 @@ void itob(int n, char s[], int base)
 {
     int i = 0, sign, tmpbase;
     unsigned tmp;
-    s[0] = '\0'; //bypass some error output
     tmp = (sign = n) > 0 ? n : -n;
     do
     {
-        switch(base)
-        {
-            case 16:
-                tmpbase = tmp%base;
-                s[i++] = tmpbase > 9 ? tmpbase + 'A' - 10 :'0' + tmpbase;
-                break;
-            case 2:
-            case 8:
-            case 10:
-                s[i++] = tmp % base + '0';
-                break;
-            default:
-                printf("The algorithm don't support this base(%d)!\n",base);
-                return ;
-                break;
-        }
+        tmpbase = tmp%base;
+        s[i++] = tmpbase > 9 ? tmpbase + 'A' - 10 :'0' + tmpbase;
     }while( (tmp /= base) > 0 );
     if(sign < 0)
         s[i++] = '-';
     s[i] = '\0';
-    //printf("%s %d\n",s,n);
     reverse(s);
 }
 
