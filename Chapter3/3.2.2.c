@@ -38,7 +38,7 @@ int anti_escope(char s[], char t[])
 
 int main(int argc,char *argv[])
 {
-    char s[] = "She is safe.\\tDon't be worry.\\n";
+    char s[] = "She is safe.\\t\\Don't be worry.\\n";
     char t[255] = {0,};
     printf("%s\n", s);
     anti_escope(s, t);
