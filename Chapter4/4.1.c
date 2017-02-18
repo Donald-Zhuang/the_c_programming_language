@@ -6,21 +6,16 @@
 /**********************************************************/
 
 #include <stdio.h>
-
+#include <string.h>
 int strindex(char s[], char t[])
 {
     int i, j;
-    if( !s[0] || !t[0] )
+    for(i = strlen(s) - strlen(t); i >= 0 ; i--)
     {
-        printf("One of the parameters is EMPTY STRING.\n");
-        return -1;
-    }
-    for(i = 0; s[i] && i < 255; i++)
-    {
-        for(j = 0; t[j] && j < 255 && t[j] == s[i+j]; j++ )
+        for(j = 0; t[j] && s[i+j] == t[j]; j++ )
             ;
-        if(j>0 && t[j] == '\0')
-            return i+j;
+        if(j > 0 && t[j] == '\0')
+            return i+1;
     }
     return -1;
 }
@@ -34,5 +29,8 @@ int main(int argc,char *argv[])
     printf("457 in 1234567 is %d\n", strindex("1234567", "457"));
     printf("1 in 1234567 is %d\n", strindex("1234567", "1"));
     printf("456 in 1234567 is %d\n", strindex("1234567", "456"));
+    printf("45 in 12345458 is %d\n", strindex("12345458", "45"));
+    printf("3 in 12345638 is %d\n", strindex("12345638", "3"));
+    printf(" in  is %d\n", strindex("", ""));
     return 0;
 }
