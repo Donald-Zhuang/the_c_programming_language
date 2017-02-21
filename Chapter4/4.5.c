@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
+
 #define MAX_LENGTH_OF_OP    (100)
 #define MAX_DEPTH_OF_STACK  (255)
 #define END_OF_STACK        (-1)
@@ -41,21 +43,23 @@ char getop(char s[])
     char ch = 0, cnt;
     while( (s[0] = ch = getch()) == ' ' || ch == '\t' )
         ;
-    for ( cnt = 0; islower(s[cnt++]); )
+    s[1] = '\0';
+    if(islower(ch))
     {
-        s[cnt] = getch();
+        for ( cnt = 0; islower(s[++cnt] = ch = getch()); )
+            ;
+        if(ch != EOF)
+            ungetch(ch);
+        s[cnt] = '\0';
+        if (strlen(s) == 1)
+        {
+            return ch; 
+        }else{
+            return TYPE_FUNC;
+        }
     }
-    s[cnt] = '\0';
-    if(strlen(s) == 1)
-    {
-        ch = s[0];
-        if( !isdigit(ch) && ch != '.' )
-            return ch;
-    }
-    else
-    {
-        return TYPE_FUNC;
-    }
+    if(!isdigit(ch) && ch != '.')
+        return ch;
     cnt = 0;
     if(isdigit(ch))
     {
@@ -65,11 +69,6 @@ char getop(char s[])
     if (ch == '.')
     {
         while(isdigit(s[++cnt] = ch = getch()))
-            ;
-    }
-    if(ch == 'e' || ch == 'E')
-    {
-        while( ( isdigit(s[++cnt] = ch = getch()) ) || (ch == '-') || (ch == '+') )
             ;
     }
     s[cnt] = '\0';
@@ -177,7 +176,28 @@ double atof(char s[])
     }
     return fRet;
 }
-
+void mathfun(char* s)
+{
+    if(strcmp("pow", s) == 0)
+    {
+        double op = pop();
+        push(pow(pop(), op));
+    }
+    else if (strcmp("sin", s) == 0)
+    {
+        push(sin(pop()));
+    }
+    else if (strcmp("cos", s) == 0)
+    {
+        push(cos(pop()));
+    }
+    else if (strcmp("exp", s) == 0)
+    {
+        push(exp(pop()));
+    }else{
+        printf("this func is not been supported!\n");
+    }
+}
 int main(int argc,char *argv[])
 {
     int type = 0;
@@ -190,6 +210,9 @@ int main(int argc,char *argv[])
         {
             case NUMBER:
                 push(atof(s));
+                break;
+            case TYPE_FUNC:
+                mathfun(s);
                 break;
             case 'p':
                 printTopStack();
