@@ -8,23 +8,24 @@
 #include <stdio.h>
 #include <string.h>
 
-int strncpy_d(char *src, char *des, int n)
+void strncpy_d(char *src, char *des, int n)
+{
+    for( ; 0 < n && (*des = *src); des++, src++, n-- )
+        ;
+    while(n-- > 0)
+		*++des = '\0';
+}
+void strncat_d(char *src, char *des, int n)
 {
     int i;
-    for( i = 0; i < n && ( *des = *(src + i) ); des++, i++ )
-        ;
-   return *des = '\0';
-}
-int strncat_d(char *src, char *des, int n)
-{
-    int i = 0;
     while(*des)
         des++;
-    
-    for( ; i < n && (*des = *src); i++, des++, src++ )
+
+    for( i = 0; i < n && (*des = *src); i++, des++, src++ )
         ;
-    return *des = '\0';     
+	*des = '\0';     
 }
+
 int strncmp_d(char *src, char *des, int n)
 {
     int i;
@@ -36,10 +37,10 @@ int strncmp_d(char *src, char *des, int n)
 int main(int argc, char **argv)
 {
     char *src = "Hello World!\n";
-    char des[255] = "Hello File\n";
-    //strncpy_d(src, des, 5);
+    char des[255] = "File\n";
+    strncpy_d(src, des, 5);
     //strncat_d(src, des, 5);
-    
-    printf(strncmp_d(src, des, 5) ? "No\n" :"Yes\n");
+    printf("%s", des);
+    //printf(strncmp_d(src, des, 5) ? "No\n" :"Yes\n");
     return 0;
 }

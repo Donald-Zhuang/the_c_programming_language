@@ -6,25 +6,22 @@
  ************************************************************************/
 
 #include<stdio.h>
-int strcat_d(char *src, char *des)
+
+void strcat_d(char *src, char *des)
 {
     while(*des != '\0')
-    {
         des++;
-    }
-    while(*src != '\0')
-    {
-        *des = *src;
-        des++;
-        src++;
-    }
-    return 0;
+    while(*src = *des)
+		;
 }
+
 int main(int argc, char **argv)
 {
     char *src = "Hello World!\n";
     char des[255] = "Log:\n";
-    strcat_d(src, des);
-    printf("%s",des);
+ 
+	strcat_d(src, des);
+    
+	printf("%s",des);
     return 0;
 }
