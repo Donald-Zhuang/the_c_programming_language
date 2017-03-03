@@ -1,7 +1,7 @@
 /***********************************************************/
 //     File Name   : 5.1.c
 //     Author      : Donald Zhuang
-//     E-Mail      : 
+//     E-Mail      :
 //     Create Time : Tue 28 Feb 2017 07:34:59 AM CST
 /**********************************************************/
 
@@ -14,7 +14,7 @@ char getch(void)
 {
     if(bufp < 0)
     {
-    //    printf("ERR: the buf is empty!\n");
+        //    printf("ERR: the buf is empty!\n");
     }
     return bufp > 0 ? buf[--bufp] : getchar();
 }
@@ -53,11 +53,11 @@ int GetInt(int *num)
     for ( *num = 0; isdigit(ch); ch = getch() )
         *num = *num * 10 + ch - '0';
     *num *= sign;
-    
+
     //if it isn't the End Of Input, ungetch the character to buf
     if(ch != EOF)
         ungetch(ch);
-    
+
     return ch;
 }
 
@@ -67,9 +67,9 @@ int main(int argc,char *argv[])
     for(i = 0; ret != EOF && i < 255; i++)
     {
         ret = GetInt(&num[i]);
-        num[i] = (ret == '-' || ret == '+') ? 0 : num[i]; 
+        num[i] = (ret == '-' || ret == '+') ? 0 : num[i];
     }
-    for( i-- ;i >= 0;i--)
+    for( i-- ; i >= 0; i--)
         printf("%d ", num[i]);
     printf("\n");
     return 0;
