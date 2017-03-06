@@ -133,5 +133,17 @@ void swap(char *v[], int i, int j)
 
 int main(int argc, char **argv)
 {
+    int nlines = 0;
+    if( (nlines = readlines(pline, MAX_LINE_LENGTH) ) >= 0)
+    {
+        qsort_d(pline, 0, nlines - 1);
+        writelines(pline, nlines);
+        return 0;
+    }
+    else 
+    {
+        printf("ERR: input error!\n");
+        return 1;
+    }
     return 0;
 }
