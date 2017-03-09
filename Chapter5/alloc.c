@@ -81,13 +81,12 @@ int readlines(char *str[], int maxlines)
 
     while( (len = getline_d(line, MAX_LINE_LENGTH)) > 0)
     {
-        if(nlines >= maxlines || (p = alloc_d(len)) == NULL )
+        if(nlines >= maxlines || (p = alloc_d(len+1)) == NULL )
         {
             return -1;
         }
         else
         {
-            line[len - 1] = '\0';
             strcpy(p, line);
             str[nlines++] = p;
         }
